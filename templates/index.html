@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h1>Clustal Output Alignment Vizualization</h1>    
+
+    <form action='/execute' method="post">
+        <textarea autocomplete="off" autofocus name = "alignment_input" placeholder = "Insert Clustal Output" type="text" style="width: 800px;height:600px;" wrap="soft" enctype="multipart/form-data"></textarea>
+        <br>
+        <br>
+        <input autocomplete="off" autofocus name = "number_input" placeholder = "Number of Alignments" type="text">
+        <br>
+        <br>
+        <input type= "submit" value="Run Tool">
+    </form>
+
+{% endblock %}
