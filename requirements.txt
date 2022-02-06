@@ -1,4 +1,3 @@
 Flask
-Flask-Navigation
 openpyxl
-gunicorn
+matplotlib
