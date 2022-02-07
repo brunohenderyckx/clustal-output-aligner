@@ -3,6 +3,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, colors
 from openpyxl.styles.fills import PatternFill
 from openpyxl.utils import get_column_letter
+from openpyxl.chart import BarChart, Reference, Series
 
 
 def soft_check(cell, ref_cell, matching_rules=[("D", "E", "N", "Q"),
@@ -204,13 +205,25 @@ def protein_aligner_single(alignment_input, alignment_number):
         sheet.cell(row=i, column=last_empty_column + EXCEL_OFFSET +
                    PADDING_RIGHT + 3).value = sum(row_match_counter)
 
+   
+    """
+    Create plot
+    """
+    values = Reference(sheet, min_col=582, min_row=2, max_col= 582 + 2, max_row=3)
+    chart = BarChart()
+    chart.add_data(values)
+    chart.type = "bar"
+    chart.grouping = "percentStacked"
+    chart.title = 'Percent Stacked Chart'
+    sheet.add_chart(chart, "VJ6")
+
     """
     Format the rest of the excel file
     """
     # print Count header
     sheet.cell(row=1, column=1).value = "Name"
 
-    header_counter_names = ['# Match', '# Fuzzy', '# No Match', 'Total']
+    header_counter_names = ['Identical', 'Conserved', 'Variable', 'Total']
     for i, header_name in enumerate(header_counter_names):
         sheet.cell(row=1, column=last_empty_column + EXCEL_OFFSET +
                    PADDING_RIGHT + i).value = header_name
