@@ -205,8 +205,24 @@ def protein_aligner_single(alignment_input, alignment_number):
         sheet.cell(row=i, column=last_empty_column + EXCEL_OFFSET +
                    PADDING_RIGHT + 3).value = sum(row_match_counter)
 
-   
-    
+        
+        CHART_OFFSET = 5
+        for index, value in enumerate(row_match_counter):
+            sheet.cell(row=i, column=last_empty_column +
+                       EXCEL_OFFSET + PADDING_RIGHT + index + CHART_OFFSET).value = value / sum(row_match_counter)
+
+    # """
+    # Create plot
+    # """
+    # values = Reference(sheet, min_col=582 + CHART_OFFSET, min_row=2, max_col= 582 + 2 + CHART_OFFSET, max_row=3)
+    # cats = Reference(sheet, min_col=1, min_row=2, max_col= 1, max_row=3)
+    # chart = BarChart()
+    # chart.add_data(values)
+    # chart.set_categories(cats)
+    # chart.type = "bar"
+    # chart.grouping = "percentStacked"
+    # chart.title = 'Percent Stacked Chart'
+    # sheet.add_chart(chart, "VJ6")
 
     """
     Format the rest of the excel file
@@ -218,6 +234,11 @@ def protein_aligner_single(alignment_input, alignment_number):
     for i, header_name in enumerate(header_counter_names):
         sheet.cell(row=1, column=last_empty_column + EXCEL_OFFSET +
                    PADDING_RIGHT + i).value = header_name
+
+    header_counter_names = ['% Identical', '% Conserved', '% Variable']
+    for i, header_name in enumerate(header_counter_names):
+        sheet.cell(row=1, column=last_empty_column + EXCEL_OFFSET +
+                   PADDING_RIGHT + i + CHART_OFFSET).value = header_name
 
     # set the width of the columns to optimize viewing display
     i = get_column_letter(1)
