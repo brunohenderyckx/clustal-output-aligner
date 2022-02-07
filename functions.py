@@ -4,12 +4,12 @@ from openpyxl.styles import Font, colors
 from openpyxl.styles.fills import PatternFill
 from openpyxl.utils import get_column_letter
 
-import csv
 
-from pyparsing import java_style_comment, javaStyleComment  # TO REMOVE
-
-
-def soft_check(cell, ref_cell, matching_rules = [("D","E","N","Q"), ("K","R","H"), ("F","W","Y"), ("V","I","L","M"), ("S","T")]):
+def soft_check(cell, ref_cell, matching_rules=[("D", "E", "N", "Q"),
+                                               ("K", "R", "H"),
+                                               ("F", "W", "Y"),
+                                               ("V", "I", "L", "M"),
+                                               ("S", "T")]):
     """ Checks if the cell value matches the matching list of tuples of the reference cell
 
     Args:
@@ -28,8 +28,7 @@ def soft_check(cell, ref_cell, matching_rules = [("D","E","N","Q"), ("K","R","H"
 
 
 def create_matching_dict():
-    
-    
+
     return None
 
 
@@ -74,14 +73,6 @@ def convert_raw_clustal(source_data, cut_of_number=5):
     # need to remove the list items if they are in the index list
     source_data = [item for item in source_data if item not in rows_to_remove]
 
-    # TO REMOVE
-    # TO REMOVE
-    # TO REMOVE
-    # TO REMOVE
-    with open("out.csv", "w") as f:
-        wr = csv.writer(f)
-        wr.writerows(source_data)
-
     return source_data
 
 
@@ -96,8 +87,8 @@ def protein_aligner_single(alignment_input, alignment_number):
     EXCEL_OFFSET = 1
     stft = Font(name='Consolas', size=10.5)
     ft = Font(name='Consolas', size=10.5, color=colors.WHITE)
-    HARD_COLOR="494544"
-    SOFT_COLOR="7A7675"
+    HARD_COLOR = "494544"
+    SOFT_COLOR = "7A7675"
 
     # generates the Clustal data
     source_data = convert_raw_clustal(alignment_input, 5)
@@ -129,7 +120,7 @@ def protein_aligner_single(alignment_input, alignment_number):
 
     # generate all row indices and loop over the rows
     for i in range(0, len(source_data)):
-        
+
         # saves the species_name of the row we are at
         # so we can check the dictionary
         row_name = source_data[i][0:min(column_range)].strip()
@@ -164,65 +155,19 @@ def protein_aligner_single(alignment_input, alignment_number):
                 sheet.cell(row=excel_row,
                            column=col_to_write).value = char_to_write
                 sheet.cell(row=excel_row, column=col_to_write).font = stft
-
-                # # performs the coloring
-                # if j>= min(column_range) and j<= max(column_range):
-
-                #     # first check which row to compare against, 0 or 11
-                #     if i in index_of_first_row:
-                #         comparator_row = i
-
-                #     # then check if the row is the comparator row, if it isn't check if it a perfect or fuzzy match
-                #     if i == comparator_row and source_data[i][j] != "-" and source_data[i][j] != " ":
-                #         sheet.cell(excel_row, column=j+2).fill = PatternFill(fgColor="494544", fill_type = "solid") # Dark color
-                #         sheet.cell(excel_row, column=j+2).font = ft
-                #         row_match_counter[0] += 1
-
-                #     else:
-                #         try:
-                #             if ((source_data[comparator_row][j] == source_data[i][j]) and (source_data[i][j] != " ") and (source_data[i][j] != "-")):
-                #                 sheet.cell(row=excel_row, column=j+2).fill = PatternFill(fgColor="494544", fill_type = "solid") # Dark color
-                #                 sheet.cell(row=excel_row, column=j+2).font = ft
-                #                 row_match_counter[0] += 1
-
-                #             elif (source_data[i][j] in ("D","E","N","Q") and source_data[comparator_row][j] in ("D","E","N","Q")) or \
-                #             (source_data[i][j] in ("K","R","H") and source_data[comparator_row][j] in ("K","R","H")) or \
-                #             (source_data[i][j] in ("F","W","Y") and source_data[comparator_row][j] in ("F","W","Y")) or \
-                #             (source_data[i][j] in ("V","I","L","M") and source_data[comparator_row][j] in ("V","I","L","M")) or \
-                #             (source_data[i][j] in ("S","T") and source_data[comparator_row][j] in ("S","T")):
-                #                 sheet.cell(row=excel_row, column=j+2).fill = PatternFill(fgColor="7A7675", fill_type = "solid") # Light color
-                #                 sheet.cell(row=excel_row, column=j+2).font = ft
-                #                 row_match_counter[1] += 1
-
-                #             elif (source_data[i][j] != " ") and (source_data[i][j] != "-"):
-                #                 row_match_counter[2] += 1
-
-                #             else:
-                #                 pass
-
-                #         except:
-                #             pass
+                
             except:
                 pass
 
 
-        # determines the
-        
-        # sheet.cell(row=1, column=summary_column).value = str(row_match_counter[0])
-        # sheet.cell(row=1, column=summary_column+1).value = str(row_match_counter[1])
-        # sheet.cell(row=1, column=summary_column+2).value = str(row_match_counter[2])
-        # sheet.cell(row=1, column=summary_column+3).value = sum(row_match_counter)
-
-        # is this correct????
         species[row_name].append(int(i + EXCEL_OFFSET + PADDING_RIGHT))
-
 
     """
     Colouring based on matching for Excel Cells
     """
     # how many columns?
     last_empty_column = len(list(sheet.columns))
-    
+
     # TO DO
     # IMPLEMENT FORM FOR USER TO DEFINE THE MATCHING RULES THEMSELVES
     #
@@ -230,47 +175,54 @@ def protein_aligner_single(alignment_input, alignment_number):
     for i in range(EXCEL_OFFSET + 1, len(species) + EXCEL_OFFSET + 1):
         row_match_counter = [0, 0, 0]
         for j in range(2, last_empty_column + EXCEL_OFFSET):
-            cell = sheet.cell(row = i, column=j).value
-            ref_cell = sheet.cell(row = 2, column =j).value
+            cell = sheet.cell(row=i, column=j).value
+            ref_cell = sheet.cell(row=2, column=j).value
             print(ref_cell, cell)
-            
+
             # compare if hard match
             if cell == ref_cell and ref_cell != "-":
-                sheet.cell(row = i, column=j).fill = PatternFill(fgColor=HARD_COLOR, fill_type = "solid")
-                sheet.cell(row = i, column=j).font = ft
+                sheet.cell(row=i, column=j).fill = PatternFill(
+                    fgColor=HARD_COLOR, fill_type="solid")
+                sheet.cell(row=i, column=j).font = ft
                 row_match_counter[0] += 1
 
             # compare if soft match
-            elif soft_check(cell, ref_cell) and ref_cell != "-": # TO DO - PASS MATCHING RULES ONCE IMPLEMENTED
-                sheet.cell(row = i, column=j).fill = PatternFill(fgColor=SOFT_COLOR, fill_type = "solid")
-                sheet.cell(row = i, column=j).font = ft
+            # TO DO - PASS MATCHING RULES ONCE IMPLEMENTED
+            elif soft_check(cell, ref_cell) and ref_cell != "-":
+                sheet.cell(row=i, column=j).fill = PatternFill(
+                    fgColor=SOFT_COLOR, fill_type="solid")
+                sheet.cell(row=i, column=j).font = ft
                 row_match_counter[1] += 1
 
             elif ref_cell == "-" or cell == "-":
                 pass
-            
+
             # no match
             else:
                 row_match_counter[2] += 1
 
         # save counter aggregates reference species
         for index, value in enumerate(row_match_counter):
-            sheet.cell(row = i, column=last_empty_column + EXCEL_OFFSET + PADDING_RIGHT + index).value = value
-        
-        sheet.cell(row = i, column=last_empty_column + EXCEL_OFFSET + PADDING_RIGHT + 3).value = sum(row_match_counter)
+            sheet.cell(row=i, column=last_empty_column +
+                       EXCEL_OFFSET + PADDING_RIGHT + index).value = value
+
+        sheet.cell(row=i, column=last_empty_column + EXCEL_OFFSET +
+                   PADDING_RIGHT + 3).value = sum(row_match_counter)
 
     """
     Format the rest of the excel file
     """
     # print Count header
     sheet.cell(row=1, column=1).value = "Name"
-    
+
     header_counter_names = ['# Match', '# Fuzzy', '# No Match', 'Total']
     for i, header_name in enumerate(header_counter_names):
-        sheet.cell(row=1, column=last_empty_column + EXCEL_OFFSET + PADDING_RIGHT + i).value = header_name
+        sheet.cell(row=1, column=last_empty_column + EXCEL_OFFSET +
+                   PADDING_RIGHT + i).value = header_name
 
     # set the width of the columns to optimize viewing display
     i = get_column_letter(1)
+    sheet.column_dimensions[i].width = 20
     sheet.column_dimensions[i].width = 20
 
     column = 2
@@ -280,7 +232,7 @@ def protein_aligner_single(alignment_input, alignment_number):
             i = get_column_letter(column)
             sheet.column_dimensions[i].width = 12
             column += 1
-        
+
         else:
             i = get_column_letter(column)
             sheet.column_dimensions[i].width = 1.5
