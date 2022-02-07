@@ -206,16 +206,7 @@ def protein_aligner_single(alignment_input, alignment_number):
                    PADDING_RIGHT + 3).value = sum(row_match_counter)
 
    
-    """
-    Create plot
-    """
-    values = Reference(sheet, min_col=582, min_row=2, max_col= 582 + 2, max_row=3)
-    chart = BarChart()
-    chart.add_data(values)
-    chart.type = "bar"
-    chart.grouping = "percentStacked"
-    chart.title = 'Percent Stacked Chart'
-    sheet.add_chart(chart, "VJ6")
+    
 
     """
     Format the rest of the excel file
