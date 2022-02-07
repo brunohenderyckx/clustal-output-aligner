@@ -42,12 +42,10 @@ def row_protein_length(row):
         length: An integer for the number of protein characters in the row
     """
     length = 0
-    print(row)
     for index, character in enumerate(row):
         if index != 0 and \
             (character.isupper() or character == "-") and \
                 (" " in row[:index]):
-            print(character, ": Match")
             length += 1
 
     return length
@@ -131,8 +129,6 @@ def protein_aligner_single(alignment_input, alignment_number):
         excel_row = min(species[row_name])
         series_rows_processed = len(species[row_name])
 
-        print("For", source_data[i], row_protein_length(source_data[i]))
-
         # generates a range from the minimum index in our protein column range
         # to the maximum + 1 index except if the row is smaller than that
         #
@@ -177,7 +173,6 @@ def protein_aligner_single(alignment_input, alignment_number):
         for j in range(2, last_empty_column + EXCEL_OFFSET):
             cell = sheet.cell(row=i, column=j).value
             ref_cell = sheet.cell(row=2, column=j).value
-            print(ref_cell, cell)
 
             # compare if hard match
             if cell == ref_cell and ref_cell != "-":
@@ -212,7 +207,6 @@ def protein_aligner_single(alignment_input, alignment_number):
     """
     Format the rest of the excel file
     """
-    # print Count header
     sheet.cell(row=1, column=1).value = "Name"
 
     header_counter_names = ['# Match', '# Fuzzy', '# No Match', 'Total']
