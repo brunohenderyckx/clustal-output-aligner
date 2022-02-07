@@ -207,6 +207,7 @@ def protein_aligner_single(alignment_input, alignment_number):
     """
     Format the rest of the excel file
     """
+    # print Count header
     sheet.cell(row=1, column=1).value = "Name"
 
     header_counter_names = ['# Match', '# Fuzzy', '# No Match', 'Total']
