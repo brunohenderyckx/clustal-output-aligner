@@ -28,9 +28,22 @@ def soft_check(cell, ref_cell, matching_rules=[("D", "E", "N", "Q"),
         return False
 
 
-def create_matching_dict():
-
-    return None
+def create_matching_dict(matching_input):
+    # creating the matching dictionary
+    if matching_input == "":
+        matching_rules = [("D", "E", "N", "Q"),
+                          ("K", "R", "H"),
+                          ("F", "W", "Y"),
+                          ("V", "I", "L", "M"),
+                          ("S", "T")]
+    else:
+        matching_rules = []
+        for line in matching_input.replace('\n',"").split("\r"):
+            temp = ()
+            for letter in line:
+                temp = temp + tuple(letter)
+            matching_rules.append(temp)
+    return matching_rules
 
 
 def row_protein_length(row):
@@ -75,7 +88,7 @@ def convert_raw_clustal(source_data, cut_of_number=5):
     return source_data
 
 
-def protein_aligner_single(alignment_input, alignment_number):
+def protein_aligner_single(alignment_input, matching_rules):
     """
     Generates the excel file with the data and color the alignment in a single row per protein
     """
@@ -184,7 +197,7 @@ def protein_aligner_single(alignment_input, alignment_number):
 
             # compare if soft match
             # TO DO - PASS MATCHING RULES ONCE IMPLEMENTED
-            elif soft_check(cell, ref_cell) and ref_cell != "-":
+            elif soft_check(cell, ref_cell, matching_rules) and ref_cell != "-":
                 sheet.cell(row=i, column=j).fill = PatternFill(
                     fgColor=SOFT_COLOR, fill_type="solid")
                 sheet.cell(row=i, column=j).font = ft
