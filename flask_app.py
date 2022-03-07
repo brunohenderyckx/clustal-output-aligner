@@ -17,14 +17,40 @@ def index():
 
 
 @app.route("/execute-protein", methods=["POST"])
-def execute():
+def execute_P():
     # reading in the inputs from the html file
     alignment_input = request.form['alignment_input']
     alignment_number = int(request.form['number_input'])
     output_wrap = request.form['wrapornot']
     matching_rules = functions.create_matching_dict(request.form['match_dictionary'])
 
-    print(matching_rules)
+    # executing the protein aligner function based on the wrap option
+    if output_wrap == "output_wrap":
+        alignment_file = functions.protein_aligner_wrap(
+            alignment_input, alignment_number)
+    elif output_wrap == "output_single":
+        alignment_file = functions.protein_aligner_single(
+            alignment_input, matching_rules)
+    else:
+        return None
+
+    # saves the excel workbook based on the excel file in memory from the alignment_file workbook in memory
+    return Response(
+        save_virtual_workbook(alignment_file),
+        headers={
+            'Content-Disposition': 'attachment; filename=Clustal_output.xlsx',
+            'Content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        }
+    )
+
+
+@app.route("/execute-nucleic", methods=["POST"])
+def execute_N():
+    # reading in the inputs from the html file
+    alignment_input = request.form['alignment_input']
+    alignment_number = int(request.form['number_input'])
+    output_wrap = request.form['wrapornot']
+    matching_rules = ""
 
     # executing the protein aligner function based on the wrap option
     if output_wrap == "output_wrap":
