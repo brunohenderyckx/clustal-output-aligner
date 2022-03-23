@@ -9,7 +9,7 @@
 
 {% block body %}
 Aligns Nucleic-Acid Clustal Outputs and exports an excel file
-
+<br>
 <!-- Creates form to put clustal data in -->
 <form action='/execute-nucleic' method="post">
 
@@ -18,20 +18,6 @@ Aligns Nucleic-Acid Clustal Outputs and exports an excel file
         style="width: 1200px;height:600px;" wrap="soft" enctype="multipart/form-data"></textarea>
 
     <br><br>
-
-    <!-- Alignment numbers -->
-    <input autocomplete="off" autofocus name="number_input" placeholder="Number of Alignments" type="text">
-
-    <br><br>
-
-    <!-- Wrap or single? -->
-    Wrap or single-line alignment?
-    <br>
-    <input type="radio" id="single line" name="wrapornot" value="output_single" checked>
-    <label for="single line">Single Line</label><br>
-    <input type="radio" id="wrap" name="wrapornot" value="output_wrap">
-    <label for="wrap">Wrap</label><br>
-    <br>
 
     <br>
     <!-- Submit button -->
