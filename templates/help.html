@@ -2,70 +2,101 @@
 
 {% block body %}
 
-<h3>Step 1 – Design input sequences for Clustal Omega tool</h3>
-
-<span word-wrap: normal>
-
-    We retrieved amino acid sequences from the NCBI – protein database (https://www.ncbi.nlm.nih.gov/protein).
-
-    <br><br><img src="/static/picture 1.png" ><br><br>
-
-    Press “search” to list La protein in the organism Homo sapiens. This will reveal a list of potential matches.
-
-    <br><br><img src="/static/picture 2.png"><br><br>
-
-    Press “FASTA” to directly link to the amino acid sequence in fasta format compatible with Clustal Omega. All sequences are obtained in fasta format which is a text-based format where the first line contains a “>” followed by a unique identifier and the second line contains the protein, RNA or DNA sequence.
-
-    Repeat for other species for example and generate list as follows:
-    <br><br>
-    >Homo.sapiens
-    MAENGDNEKMAALEAKICHQIEYYFGDFNLPRDKFLKEQIKLDEGWVPLEIMIKFNRLNRLTTDFNVIVEALSKSKAELMEISEDKTKIRRSPSKPLPEVTDEYKNDVKNRSVYIKGFPTDATLDDIKEWLEDKGQVLNIQMRRTLHKAFKGSIFVVFDSIESAKKFVETPGQKYKETDLLILFKDDYFAKKNEERKQNKVEAKLRAKQEQEAKQKLEEDAEMKSLEEKIGCLLKFSGDLDDQTCREDLHILFSNHGEIKWIDFVRGAKEGIILFKEKAKEALGKAKDANNGNLQLRNKEVTWEVLEGEVEKEALKKIIEDQQESLNKWKSKGRRFKGKGKGNKAAQPGSGKGKVQFQGKKTKFASDDEHDEHDENGATGPVKRAREETDKEEPASKQQKTENGAGDQ
-    > Mus.musculus
-    MAENGDNEKMTALEAKICHQIEYYFGDFNLPRDKFLKEQIKLDEGWVPLETMIKFNRLNRLTTDFNVIVQALSKSKAKLMEVSADKTKIRRSPSRPLPEVTDEYKNDVKNRSVYIKGFPTDATLDDIKEWLDDKGQILNIQMRRTLHKTFKGSIFAVFDSIQSAKKFVEIPGQKYKDTNLLILFKEDYFAKKNEERKQSKVEAKLKAKQEHEGRHKPGSTETRALEGKMGCLLKFSGDLDDQTCREDLHFLFSNHGEIKWVDFARGAKEGIILFKEKAKEALEKARNANNGNLLLRNKKVTWKVLEGHAEKEALKKITDDQQESLNKWKSKGGHAGGRFKGSHVFTAARRFKGKGKGNRPGYAGAPKGRGQFHGRRTRFDDDDRRRGPMKRGRDGRDREEPASKHKKRENGARDK
-    >Caenorhabditis.elegans
-    MGETAAAVHDDADQKIIKQLEYYFGNINLPRDKFLQEKLKEDDGWVPITTMLNFNRLASISKDTEKIANAVKNSGSGIISVSEDNQKIRRNEENPVPENSLEYWQKIKHRTVYMKGFSTDTQLDDIIQWANQFGETENVLMRRLKPGDRTFKGSVFITYKTREEAEAAQKAEVKFGETELTKMMQDEYWTLKNKETKEARAANKAAKSAKNTSEAIESEKAQHAVRYEKGLILAVDGLGPDSTIDSIKTFFKLHGSVGYVAHENGGKTAEIRFNNDSEGAQKAWDNAVAAGTDGKVILQEAELSARVLDGEEEEKYWTEFNARKNQRQGGGRGGRGGRGGRGGRGGRGGRGGRGGRGDRRGDKRSANDEGADGSDEPKAKRTVFAEDGAPAAAAAE
-    >Drosophila.melanogaster
-    MAEVAETPSVEAQEEVAQPAEAQVLEAKNGDAKKDPAPAAEEAAGGFTKQERAIIRQVEYYFGDANLNRDKFLREQIGKNEDGWVPLSVLVTFKRLASLSTDLSEIVAALNKSEEGLVEISEDKLSLRRHPERPIPEHNEERRKEIQERTAYAKGFPLDSQISELLDFAANYDKVVNLTMRKHYDKPTKSYKFKGSIFLTFETKDQAKAFLEQEKIVYKERELLRKWQVDYLKEKQEEYAQKNEKRKNKKEAKPEPAFELPKNAIVVFEGAPETSSREEIREAFEKIKDFEVAYIEFAKGETKGSVRLTEADAAEKYIAKVEEGKLKFKDEVSLSLRKATEEEEKEFIDKAIEFMKKRRDFTRNKGKRFNRKRHGGNDHKHGGGKKARGD
-    >Schizosaccharomyces.pombe
-    MSTEEQKEEIKDISSKQENSSEVPKAEEAGKVVESQKDTTSEEKKEETTEKKEDDGKKDLSFDEAEVLKQVEFYFSDTNLPHDKFLWTTSQKNDGWVPIQTIANFKRMRRFQPLEAIVNALRKSPELLEVDEAGEKVRRMIPLVRVDNKSVMERSVYCKGFGDEKDDTQIALEKFFEENAGPISAVRMRRDDDKKFKGSVFVEFKEPDVANKFLEKVKTAPLKWGEDELTIMSKKEYVDMKAELHKNDPPKFSSKRRRFDAFKEMDRQRPGKYSNRGRKFKKQRSSNASEEKPSAASE
-    >Saccharomyces.cerevisiae
-    MSEKPQQEEQEKPQSRRNSFAVIEFTPEVLDRCLKQVEFYFSEFNFPYDRFLRTTAEKNDGWVPISTIATFNRMKKYRPVDKVIEALRSSEILEVSADGENVKRRVPLDLTAARNARIEQNQRTLAVMNFPHEDVEASQIPELQENLEAFFKKLGEINQVRLRRDHRNKKFNGTVLVEFKTIPECEAFLKSYSNDDESNEILSYEGKKLSVLTKKQFDLQREASKSKNFSGRSRSFNGHKKKNLPKFPKNKKKNGKEESKEDSSAIADDDEEHKE
-    >Tetrahymena.thermophila
-    MSINKEEVKKQVEYYLSDKNLVNDEKFRTIIQEHPEGYLSFGNILNCNKIKRLGVTTFEQLATSLADSTLVELNEAKDSVRRAGNKPIPAKEAVDPAEAAEKEAREAEKKELINFYETFQPIIFSTACEQEGVANWRNITEALLKQHNVHAPYCRFGKLEGNFALNKDKTSQEVIDQLVQDGLQFGESKVTIKVSEGEALSKFWELHGRHYNGVMELKKKEVNQTVKAKKDKKEKKQKREFEFGGEKYTDVLTIKNLFKGILGRTANGQKIISPYHEMLKSLLEYHNNKEAKLKDLDHFTVDVHPEHKDTRCFFVVKSDGTKEDFSAVKCISNFEEKLKL
 
 
-    <br><br>
-
-    <h3>Step 2 – Enter list of fasta sequences in Clustal Omega</h3>
-
-    <br>
-
-    Click the link to go to the Clustal Omega website for alignments:  https://www.ebi.ac.uk/Tools/msa/clustalo/ 
-
-    <br><br><img src="/static/picture 3.png" width="700"><br><br>
-
-    Enter your fasta sequences of interest in the Clustal Omega tool:
-
-    <br><br><img src="/static/picture 4.png" width="700"><br><br>
-
-    <br><br><img src="/static/picture 5.png" width="700"><br><br>
-
-    Click “More options…” to ensure that all sequences are compared to Homo sapiens by changing “ORDER” from “aligned” to “input”
-
-    <br><br><img src="/static/picture 6.png" width="700"><br><br>
-
-    <br><br><img src="/static/picture 7.png" width="700"><br><br>
-
-    <br><br><img src="/static/picture 8.png" width="700"><br><br>
+<div class="container">
 
 
-    <h3>Step 3 – Enter the alignments from Clustal Omega in the Alignment Visualization tool</h3>
+    <span word-wrap: normal>
 
-    Copy the alignment results and paste them in the Alignment Visualization tool and list the number of alignments in the corresponding box. 
-Wrap or single-line alignment?
-“Single line” alignment will give the results without breaks and the “Wrap” alignment keeps the format of the Clustal Output file. 
+        <h3>Step 1 – Design input sequences for Clustal Omega tool</h3>
+
+        We retrieved amino acid sequences from the NCBI – protein database (https://www.ncbi.nlm.nih.gov/protein).
+
+        <br><br><img src="/static/picture 1.png" width="700"><br><br>
+
+        Press “search” to list La protein in the organism Homo sapiens. This will reveal a list of potential matches.
+
+        <br><br><img src="/static/picture 2.png" width="400"><br><br>
+
+        Press “FASTA” to directly link to the amino acid sequence in fasta format compatible with Clustal Omega. All
+        sequences are obtained in fasta format which is a text-based format where the first line contains a “>” followed
+        by a unique identifier and the second line contains the protein, RNA or DNA sequence.
+
+        Repeat for other species for example and generate list as follows:
+        <br><br>
+            >Homo.sapiens
+            MAENGDNEKMAALEAKICHQIEYYFGDFNLPRDKFLKEQIKLDEGWVPLEIMIKFNRLNRLTTDFNVIVEALSKSKAELMEISEDKTKIRRSPSKP...
+            <br>> Mus.musculus
+            MAENGDNEKMTALEAKICHQIEYYFGDFNLPRDKFLKEQIKLDEGWVPLETMIKFNRLNRLTTDFNVIVQALSKSKAKLMEVSADKTKIRRSPSRP...
+            <br>>Caenorhabditis.elegans
+            MGETAAAVHDDADQKIIKQLEYYFGNINLPRDKFLQEKLKEDDGWVPITTMLNFNRLASISKDTEKIANAVKNSGSGIISVSEDNQKIRRNEENPV...
+            <br>>Drosophila.melanogaster
+            MAEVAETPSVEAQEEVAQPAEAQVLEAKNGDAKKDPAPAAEEAAGGFTKQERAIIRQVEYYFGDANLNRDKFLREQIGKNEDGWVPLSVLVTFKRL...
+            <br>>Schizosaccharomyces.pombe
+            MSTEEQKEEIKDISSKQENSSEVPKAEEAGKVVESQKDTTSEEKKEETTEKKEDDGKKDLSFDEAEVLKQVEFYFSDTNLPHDKFLWTTSQKNDGW...
+            <br>>Saccharomyces.cerevisiae
+            MSEKPQQEEQEKPQSRRNSFAVIEFTPEVLDRCLKQVEFYFSEFNFPYDRFLRTTAEKNDGWVPISTIATFNRMKKYRPVDKVIEALRSSEILEVS...
+            <br>>Tetrahymena.thermophila
+            MSINKEEVKKQVEYYLSDKNLVNDEKFRTIIQEHPEGYLSFGNILNCNKIKRLGVTTFEQLATSLADSTLVELNEAKDSVRRAGNKPIPAKEAVDP...
+        <br><br>
+
+        <h3>Step 2 – Enter list of fasta sequences in Clustal Omega</h3>
+
+        <br>
+
+        Click the link to go to the Clustal Omega website for alignments: https://www.ebi.ac.uk/Tools/msa/clustalo/
+
+        <br><br><img src="/static/picture 3.png" width="550"><br><br>
+
+        Enter your fasta sequences of interest in the Clustal Omega tool:
+
+        <br><br><img src="/static/picture 4.png" width="700">
+
+        <br><img src="/static/picture 5.png" width="700"><br>
+
+        Click “More options…” to ensure that all sequences are compared to Homo sapiens by changing “ORDER” from
+        “aligned” to “input”
+
+        <br><img src="/static/picture 6.png" width="700">
+
+        <br><img src="/static/picture 7.png" width="700">
+
+        <br><br><img src="/static/picture 8.png" width="700"><br><br>
 
 
-</span>
+        <h3>Step 3 – Enter the alignments from Clustal Omega in the Alignment Visualization tool</h3>
+
+        Copy the alignment results and paste them in the Alignment Visualization tool.
+
+        <br><br><img src="/static/picture 9.png" width="700"><br><br>
+
+        Custom changes to the alignment matches can be made by typing in your conserved amino acid matching residues of
+        interest in the “Advanced Setting” box.
+
+        <br><br><img src="/static/picture 10.png" width="700"><br><br>
+
+        The standard used matching of conserved amino acids are:
+        <ul>
+            <li>DENQ</li>
+            <li>KRH</li>
+            <li>FWY</li>
+            <li>VILM</li>
+            <li>ST</li>
+          </ul> 
+
+        No conservation comparison is done for following amino acids:
+        <ul>
+            <li>C</li>
+            <li>G</li>
+            <li>P</li>
+            <li>A</li>
+           </ul>
+
+
+
+
+    </span>
+</div>
 
 {% endblock %}
