@@ -178,10 +178,7 @@ def protein_aligner_single(alignment_input, matching_rules):
     # how many columns?
     last_empty_column = len(list(sheet.columns))
 
-    # TO DO
-    # IMPLEMENT FORM FOR USER TO DEFINE THE MATCHING RULES THEMSELVES
-    #
-
+    
     for i in range(EXCEL_OFFSET + 1, len(species) + EXCEL_OFFSET + 1):
         row_match_counter = [0, 0, 0]
         for j in range(2, last_empty_column + EXCEL_OFFSET):
@@ -196,17 +193,19 @@ def protein_aligner_single(alignment_input, matching_rules):
                 row_match_counter[0] += 1
 
             # compare if soft match
-            # TO DO - PASS MATCHING RULES ONCE IMPLEMENTED
             elif soft_check(cell, ref_cell, matching_rules) and ref_cell != "-":
                 sheet.cell(row=i, column=j).fill = PatternFill(
                     fgColor=SOFT_COLOR, fill_type="solid")
                 sheet.cell(row=i, column=j).font = ft
                 row_match_counter[1] += 1
-
-            elif ref_cell == "-" or cell == "-":
+            
+            # all the other matches
+            elif ref_cell != "-" and cell == "-":
+                row_match_counter[2] += 1
+            elif ref_cell == "-" and cell == "-":
                 pass
-
-            # no match
+            elif ref_cell != "-" and cell == "-":
+                pass
             else:
                 row_match_counter[2] += 1
 
@@ -266,129 +265,6 @@ def protein_aligner_single(alignment_input, matching_rules):
             sheet.column_dimensions[i].width = 12
             column += 1
 
-        else:
-            i = get_column_letter(column)
-            sheet.column_dimensions[i].width = 1.5
-            column += 1
-
-    sheet.sheet_view.showGridLines = False
-    return workbook
-
-
-def protein_aligner_wrap(alignment_input, alignment_number):
-    """
-    Generates the excel file with the data and color the alignment
-    """
-
-    # Defining constants and variables
-    PADDING_LEFT = 1
-    PADDING_RIGHT = 1
-    PADDING_BELOW = 1
-    stft = Font(name='Consolas', size=10.5)  # font for excel
-    ft = Font(name='Consolas', size=10.5, color=colors.WHITE)  # font for excel
-
-    # create and activate excel worksheet
-    workbook = Workbook()
-    sheet = workbook.active
-
-    # converst the Clustal data in
-    source_data = convert_raw_clustal(alignment_input, 5)
-
-    # generates a list of row indexes that will be used to compare alignments against
-    index_of_first_row = [x for x in range(0, 100, alignment_number + 1)]
-
-    # figures out what the column-indices are for the alignment comparisons
-    column_range = []
-    for index, character in enumerate(source_data[0]):
-        # only upper characters or -
-        if index != 0 and (character.isupper() or character == "-") and (" " in source_data[0][:index]):
-            column_range.append(index)
-
-    # generate all row indices and loop over the rows
-    for i in range(0, len(source_data)):
-        row_match_counter = [0, 0, 0]
-
-        # save the name to column A
-        sheet.cell(
-            row=i+2, column=1).value = source_data[i][0:min(column_range)].strip()
-        sheet.cell(row=i+2, column=1).font = stft
-
-        # generate only non-name column indices and loop over the columns
-        for j in range(min(column_range), len(source_data[i]) - min(column_range)):
-
-            # save the output to excel with the standard font
-            sheet.cell(row=i+2, column=j+2).value = source_data[i][j]
-            sheet.cell(row=i+2, column=j+2).font = stft
-
-            if j >= min(column_range) and j <= max(column_range):
-
-                # first check which row to compare against, 0 or 11
-                if i in index_of_first_row:
-                    comparator_row = i
-
-                # then check if the row is the comparator row, if it isn't check if it a perfect or fuzzy match
-                if i == comparator_row and source_data[i][j] != "-" and source_data[i][j] != " ":
-                    sheet.cell(row=i+2, column=j+2).fill = PatternFill(
-                        fgColor="494544", fill_type="solid")  # Dark color
-                    sheet.cell(row=i+2, column=j+2).font = ft
-                    row_match_counter[0] += 1
-
-                else:
-                    try:
-                        if ((source_data[comparator_row][j] == source_data[i][j]) and (source_data[i][j] != " ") and (source_data[i][j] != "-")):
-                            sheet.cell(row=i+2, column=j+2).fill = PatternFill(
-                                fgColor="494544", fill_type="solid")  # Dark color
-                            sheet.cell(row=i+2, column=j+2).font = ft
-                            row_match_counter[0] += 1
-
-                        elif (source_data[i][j] in ("D", "E", "N", "Q") and source_data[comparator_row][j] in ("D", "E", "N", "Q")) or \
-                            (source_data[i][j] in ("K", "R", "H") and source_data[comparator_row][j] in ("K", "R", "H")) or \
-                            (source_data[i][j] in ("F", "W", "Y") and source_data[comparator_row][j] in ("F", "W", "Y")) or \
-                            (source_data[i][j] in ("V", "I", "L", "M") and source_data[comparator_row][j] in ("V", "I", "L", "M")) or \
-                                (source_data[i][j] in ("S", "T") and source_data[comparator_row][j] in ("S", "T")):
-                            sheet.cell(row=i+2, column=j+2).fill = PatternFill(
-                                fgColor="7A7675", fill_type="solid")  # Light color
-                            sheet.cell(row=i+2, column=j+2).font = ft
-                            row_match_counter[1] += 1
-
-                        elif (source_data[i][j] != " ") and (source_data[i][j] != "-"):
-                            row_match_counter[2] += 1
-
-                        else:
-                            pass
-
-                    except:
-                        pass
-
-        # determines the
-        summary_column = 100
-
-        sheet.cell(
-            row=i+2, column=summary_column).value = str(row_match_counter[0])
-        sheet.cell(row=i+2, column=summary_column +
-                   1).value = str(row_match_counter[1])
-        sheet.cell(row=i+2, column=summary_column +
-                   2).value = str(row_match_counter[2])
-        sheet.cell(row=i+2, column=summary_column +
-                   3).value = sum(row_match_counter)
-
-    sheet.cell(row=1, column=1).value = "Name"
-    sheet.cell(row=1, column=summary_column).value = "# Match"
-    sheet.cell(row=1, column=summary_column + 1).value = "# Fuzzy"
-    sheet.cell(row=1, column=summary_column + 2).value = "# No Match"
-    sheet.cell(row=1, column=summary_column + 3).value = "Total"
-
-    # set the width of the columns to optimize viewing display
-    i = get_column_letter(1)
-    sheet.column_dimensions[i].width = 20
-
-    column = 2
-    while column < 601:
-
-        if column > 99:
-            i = get_column_letter(column)
-            sheet.column_dimensions[i].width = 3
-            column += 1
         else:
             i = get_column_letter(column)
             sheet.column_dimensions[i].width = 1.5
