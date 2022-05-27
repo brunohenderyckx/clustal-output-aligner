@@ -13,4 +13,4 @@ Python needs to be installed, dependencies are included in the requirements.txt 
 
 ## Access the web-interface
 
-The alignment tool can be access online here: http://clustaloutputaligner.pythonanywhere.com/
+The alignment tool can be access online here: http://clustaloutputaligner.pythonanywhere.com/. Instructions on how to use Clustal and the web tool cna be found here: http://clustaloutputaligner.pythonanywhere.com/help
